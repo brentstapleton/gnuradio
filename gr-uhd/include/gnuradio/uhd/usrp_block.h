@@ -492,8 +492,8 @@ namespace gr {
        * \param clock_config the new configuration
        * \param mboard the motherboard index 0 to M-1
        */
-      virtual void set_clock_config(const ::uhd::clock_config_t &clock_config,
-                                    size_t mboard = 0) = 0;
+      // virtual void set_clock_config(const ::uhd::clock_config_t &clock_config,
+      //                               size_t mboard = 0) = 0;
 
       /*!
        * Set the time source for the USRP device.

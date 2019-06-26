@@ -73,7 +73,7 @@ namespace gr {
       size_t get_num_mboards();
 
       // Setters
-      void set_clock_config(const ::uhd::clock_config_t &clock_config, size_t mboard);
+      // void set_clock_config(const ::uhd::clock_config_t &clock_config, size_t mboard);
       void set_time_source(const std::string &source, const size_t mboard);
       void set_clock_source(const std::string &source, const size_t mboard);
       void set_clock_rate(double rate, size_t mboard);
