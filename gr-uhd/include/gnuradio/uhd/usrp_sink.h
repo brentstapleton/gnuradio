@@ -131,7 +131,7 @@ namespace gr {
        * gr::uhd::usrp_sink::make(const ::uhd::device_addr_t, const ::uhd::stream_args_t, const std::string).
        */
       static sptr make(const ::uhd::device_addr_t &device_addr,
-                       const ::uhd::io_type_t &io_type,
+                       const gr::uhd::io_type_t &io_type,
                        size_t num_channels);
 
       /*!

@@ -94,7 +94,7 @@ class build_block(gr.top_block):
         if rx_enable:
             print "\nRECEIVE CHAIN"
             self.u_rx = uhd.usrp_source(device_addr=args,
-                                        io_type=uhd.io_type.COMPLEX_FLOAT32,
+                                        io_type="fc32",
                                         num_channels=rx_nchan)
             self.rx_dst0 = blocks.null_sink(gr.sizeof_gr_complex)
 

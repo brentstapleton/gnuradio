@@ -134,9 +134,9 @@ usrp_block_impl::usrp_block_impl(
 {
   // TODO remove this when we update UHD
   if(stream_args.cpu_format == "fc32")
-    _type = boost::make_shared< ::uhd::io_type_t >(::uhd::io_type_t::COMPLEX_FLOAT32);
+    _type = boost::make_shared< gr::uhd::io_type_t >("fc32");
   if(stream_args.cpu_format == "sc16")
-    _type = boost::make_shared< ::uhd::io_type_t >(::uhd::io_type_t::COMPLEX_INT16);
+    _type = boost::make_shared< gr::uhd::io_type_t >("sc16");
   _dev = ::uhd::usrp::multi_usrp::make(device_addr);
 
   _check_mboard_sensors_locked();

@@ -34,16 +34,17 @@ namespace gr {
 
     usrp_source::sptr
     usrp_source::make(const ::uhd::device_addr_t &device_addr,
-                      const ::uhd::io_type_t &io_type,
+                      const gr::uhd::io_type_t &io_type,
                       size_t num_channels)
     {
       //fill in the streamer args
       ::uhd::stream_args_t stream_args;
-      switch(io_type.tid) {
-      case ::uhd::io_type_t::COMPLEX_FLOAT32: stream_args.cpu_format = "fc32"; break;
-      case ::uhd::io_type_t::COMPLEX_INT16: stream_args.cpu_format = "sc16"; break;
-      default: throw std::runtime_error("only complex float and shorts known to work");
-      }
+      // switch(io_type.tid) {
+      // case gr::uhd::io_type_t::COMPLEX_FLOAT32: stream_args.cpu_format = "fc32"; break;
+      // case gr::uhd::io_type_t::COMPLEX_INT16: stream_args.cpu_format = "sc16"; break;
+      // default: throw std::runtime_error("only complex float and shorts known to work");
+      // }
+      stream_args.cpu_format = "fc32";
 
       stream_args.otw_format = "sc16"; //only sc16 known to work
       for(size_t chan = 0; chan < num_channels; chan++)

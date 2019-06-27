@@ -218,7 +218,7 @@ namespace gr {
       //! Shared pointer to the underlying multi_usrp object
       ::uhd::usrp::multi_usrp::sptr _dev;
       ::uhd::stream_args_t _stream_args;
-      boost::shared_ptr< ::uhd::io_type_t > _type;
+      boost::shared_ptr< gr::uhd::io_type_t > _type;
       //! Number of channels (i.e. number of in- or outputs)
       size_t _nchan;
       bool _stream_now;

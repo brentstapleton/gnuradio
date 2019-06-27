@@ -35,7 +35,7 @@ class uhd_input(gr.hier_block2):
                                 gr.io_signature(1,1,gr.sizeof_gr_complex))
 
         self.src = uhd.usrp_source(device_addr=address,
-                                   io_type=uhd.io_type.COMPLEX_FLOAT32,
+                                   io_type="fc32",
                                    num_channels=1)
 
         self.src.set_samp_rate(samp_rate)

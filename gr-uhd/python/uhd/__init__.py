@@ -110,7 +110,7 @@ def _prepare_uhd_swig():
                 kwargs = dict(kwargs)
                 for index, key, cast in (
                     (0, 'device_addr', device_addr),
-                    (1, 'io_type', io_type),
+                    (1, 'io_type', "fc32"),
                 ):
                     try:
                         if len(args) > index: args[index] = cast(args[index])

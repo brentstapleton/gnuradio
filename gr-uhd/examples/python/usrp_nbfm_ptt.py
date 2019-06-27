@@ -379,7 +379,7 @@ class receive_path(gr.hier_block2):
 				gr.io_signature(0, 0, 0)) # Output signature
 
         self.u = uhd.usrp_source(device_addr=args,
-                                 io_type=uhd.io_type.COMPLEX_FLOAT32,
+                                 io_type="fc32",
                                  num_channels=1)
 
         self.if_rate    = 256e3

@@ -48,6 +48,8 @@ namespace gr {
     GR_UHD_API const pmt::pmt_t ant_direction_rx();
     GR_UHD_API const pmt::pmt_t ant_direction_tx();
 
+    using io_type_t = std::string;
+
     /*! Base class for USRP blocks.
      * \ingroup uhd_blk
      *
