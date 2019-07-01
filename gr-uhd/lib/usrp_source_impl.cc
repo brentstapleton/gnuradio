@@ -35,7 +35,7 @@ namespace gr {
     usrp_source::sptr
     usrp_source::make(const ::uhd::device_addr_t &device_addr,
                       const gr::uhd::io_type_t &io_type,
-                      size_t num_channels)
+                        size_t num_channels)
     {
       //fill in the streamer args
       ::uhd::stream_args_t stream_args;
@@ -75,12 +75,14 @@ namespace gr {
       _tag_now(false),
       _issue_stream_cmd_on_start(issue_stream_cmd_on_start)
     {
+      GR_LOG_DEBUG(d_logger, "_issue_stream_cmd_on_start: " + std::to_string(issue_stream_cmd_on_start));
       std::stringstream str;
       str << name() << unique_id();
       _id = pmt::string_to_symbol(str.str());
 
       _samp_rate = this->get_samp_rate();
 #ifdef GR_UHD_USE_STREAM_API
+      GR_LOG_DEBUG(d_logger, "Using Stream API");
       _samps_per_packet = 1;
 #endif
       register_msg_cmd_handler(cmd_tag_key(), boost::bind(&usrp_source_impl::_cmd_handler_tag, this, _1));
@@ -127,6 +129,7 @@ namespace gr {
     double
     usrp_source_impl::get_samp_rate(void)
     {
+      return 1e6;
       return _dev->get_rx_rate(_stream_args.channels[0]);
     }
 
@@ -512,6 +515,7 @@ namespace gr {
     bool
     usrp_source_impl::start(void)
     {
+      GR_LOG_DEBUG(d_logger, "Starting stream");
       boost::recursive_mutex::scoped_lock lock(d_mutex);
 #ifdef GR_UHD_USE_STREAM_API
       if(not _rx_stream){
@@ -532,6 +536,7 @@ namespace gr {
           stream_cmd.time_spec = get_time_now() + ::uhd::time_spec_t(reasonable_delay);
         }
         this->issue_stream_cmd(stream_cmd);
+        // GR_LOG_DEBUG(d_logger, boost::format("Starting stream %s, time: %:02f") % stream_cmd.stream_now % stream_cmd.time_spec.get_real_secs());
       }
       _tag_now = true;
       return true;
@@ -647,6 +652,10 @@ namespace gr {
           _recv_timeout,
           _recv_one_packet
       );
+      if (num_samps == 0) {
+        GR_LOG_DEBUG(d_logger, "Got 0 samples: " + std::to_string(_metadata.error_code));
+      }
+      
 #else
       size_t num_samps = _dev->get_device()->recv
         (output_items, noutput_items, _metadata,

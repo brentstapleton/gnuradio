@@ -160,11 +160,14 @@ usrp_block_impl::usrp_block_impl(
   REGISTER_CMD_HANDLER(cmd_rate_key(), _cmd_handler_rate);
   REGISTER_CMD_HANDLER(cmd_bandwidth_key(), _cmd_handler_bw);
   REGISTER_CMD_HANDLER(cmd_antenna_key(), _cmd_handler_antenna);
+
+  GR_LOG_WARN(d_logger, "MADE A USRP BLOCK!!!!");
 }
 
 usrp_block_impl::~usrp_block_impl()
 {
   // nop
+  GR_LOG_WARN(d_logger, "Dtor A USRP BLOCK!!!!");
 }
 
 /**********************************************************************
@@ -252,28 +255,29 @@ bool usrp_block_impl::_unpack_chan_command(
 
 bool usrp_block_impl::_check_mboard_sensors_locked()
 {
-  bool clocks_locked = true;
+  return true;
+  // bool clocks_locked = true;
 
-  // Check ref lock for all mboards
-  for (size_t mboard_index = 0; mboard_index < _dev->get_num_mboards(); mboard_index++) {
-    std::string sensor_name = "ref_locked";
-    if (_dev->get_clock_source(mboard_index) == "internal") {
-      continue;
-    }
-    else if (_dev->get_clock_source(mboard_index) == "mimo") {
-      sensor_name = "mimo_locked";
-    }
-    if (not _wait_for_locked_sensor(
-            get_mboard_sensor_names(mboard_index),
-            sensor_name,
-            boost::bind(&usrp_block_impl::get_mboard_sensor, this, _1, mboard_index)
-        )) {
-      GR_LOG_WARN(d_logger, boost::format("Sensor '%s' failed to lock within timeout on motherboard %d.") % sensor_name % mboard_index);
-      clocks_locked = false;
-    }
-  }
+  // // Check ref lock for all mboards
+  // for (size_t mboard_index = 0; mboard_index < _dev->get_num_mboards(); mboard_index++) {
+  //   std::string sensor_name = "ref_locked";
+  //   if (_dev->get_clock_source(mboard_index) == "internal") {
+  //     continue;
+  //   }
+  //   else if (_dev->get_clock_source(mboard_index) == "mimo") {
+  //     sensor_name = "mimo_locked";
+  //   }
+  //   if (not _wait_for_locked_sensor(
+  //           get_mboard_sensor_names(mboard_index),
+  //           sensor_name,
+  //           boost::bind(&usrp_block_impl::get_mboard_sensor, this, _1, mboard_index)
+  //       )) {
+  //     GR_LOG_WARN(d_logger, boost::format("Sensor '%s' failed to lock within timeout on motherboard %d.") % sensor_name % mboard_index);
+  //     clocks_locked = false;
+  //   }
+  // }
 
-  return clocks_locked;
+  // return clocks_locked;
 }
 
 void
@@ -313,6 +317,7 @@ void
 usrp_block_impl::set_time_source(const std::string &source,
                                 const size_t mboard)
 {
+  return;
 #ifdef UHD_USRP_MULTI_USRP_REF_SOURCES_API
   return _dev->set_time_source(source, mboard);
 #else
@@ -344,6 +349,7 @@ void
 usrp_block_impl::set_clock_source(const std::string &source,
                                  const size_t mboard)
 {
+  return;
 #ifdef UHD_USRP_MULTI_USRP_REF_SOURCES_API
   return _dev->set_clock_source(source, mboard);
 #else
@@ -422,18 +428,21 @@ void
 usrp_block_impl::set_time_now(const ::uhd::time_spec_t &time_spec,
                              size_t mboard)
 {
+  return;
   return _dev->set_time_now(time_spec, mboard);
 }
 
 void
 usrp_block_impl::set_time_next_pps(const ::uhd::time_spec_t &time_spec)
 {
+  return;
   return _dev->set_time_next_pps(time_spec);
 }
 
 void
 usrp_block_impl::set_time_unknown_pps(const ::uhd::time_spec_t &time_spec)
 {
+  return;
   return _dev->set_time_unknown_pps(time_spec);
 }
 
@@ -441,6 +450,7 @@ void
 usrp_block_impl::set_command_time(const ::uhd::time_spec_t &time_spec,
                                  size_t mboard)
 {
+  return;
 #ifdef UHD_USRP_MULTI_USRP_COMMAND_TIME_API
   return _dev->set_command_time(time_spec, mboard);
 #else
@@ -451,6 +461,7 @@ usrp_block_impl::set_command_time(const ::uhd::time_spec_t &time_spec,
 void
 usrp_block_impl::clear_command_time(size_t mboard)
 {
+  return;
 #ifdef UHD_USRP_MULTI_USRP_COMMAND_TIME_API
   return _dev->clear_command_time(mboard);
 #else
@@ -463,6 +474,7 @@ usrp_block_impl::set_user_register(const uint8_t addr,
                                     const uint32_t data,
                                     size_t mboard)
 {
+  return;
 #ifdef UHD_USRP_MULTI_USRP_USER_REGS_API
   _dev->set_user_register(addr, data, mboard);
 #else
